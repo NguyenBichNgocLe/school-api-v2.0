@@ -32,11 +32,16 @@ export class ClassRepository {
     public save(savedClass: Class) {
         const index = ClassRepository.DATA.findIndex((c) => c.id === savedClass.id);
         ClassRepository.DATA[index] = savedClass;
+        return ClassRepository.DATA[index];
     }
 
     public deleteClass(id: number): Class[] {
         const classIndex = ClassRepository.DATA.findIndex((c) => c.id === id);
         const deletedClass = ClassRepository.DATA.splice(classIndex, 1);
         return deletedClass;
+    }
+
+    public isDuplicatedName(className: string): boolean {
+        return ClassRepository.DATA.some(c => c.className.toLowerCase() === className.toLowerCase());
     }
 }

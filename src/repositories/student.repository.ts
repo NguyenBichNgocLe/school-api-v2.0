@@ -23,6 +23,14 @@ export class StudentRepository {
         return StudentRepository.DATA;
     }
 
+    public getByClassName(className: string): Student[] {
+        return StudentRepository.DATA.filter((student) => student.className.toLowerCase() === className.toLowerCase());
+    }
+
+    public anyStudentInClass(className: string): boolean {
+        return StudentRepository.DATA.some((student) => student.className.toLowerCase() === className.toLowerCase());
+    }
+
     public addStudent(studentName: string, className: string): Student {
         const newStudent = { studentName, className, id: StudentRepository.NEXT_ID_VALUE };
         StudentRepository.DATA.push(newStudent);
