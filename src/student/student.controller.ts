@@ -32,13 +32,13 @@ export class StudentController {
     }
 
     @Get('/usingID/:id')
-    @Roles(['admin', 'teacher'])
+    @Roles(['admin', 'teacher', 'principal'])
     getStudentById(@Param('id') id: string) {
         return this.studentService.getStudentById(+id);
     }
 
     @Get('/usingName')
-    @Roles(['admin', 'teacher'])
+    @Roles(['admin', 'teacher', 'principal'])
     filterStudents(@Query('searchString') searchString: string) {
         return this.studentService.filterStudent(searchString);
     }
@@ -50,7 +50,7 @@ export class StudentController {
     }
 
     @Get('/inOneClass')
-    @Roles(['admin', 'teacher'])
+    @Roles(['admin', 'teacher', 'principal'])
     getStudentInSameClass(@Query('className') className: string) {
         return this.studentService.getStudentInSameClass(className);
     }
