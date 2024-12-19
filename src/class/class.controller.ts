@@ -13,9 +13,14 @@ export class ClassController {
         return this.classService.create(createClassDto.className);
     }
 
-    @Get('/:id')
+    @Get('/usingID/:id')
     getClassById(@Param('id') id: string) {
         return this.classService.getClassById(+id);
+    }
+
+    @Get('/all')
+    getAllClasses() {
+        return this.classService.getAllClasses();
     }
 
     @Patch('/:id')
