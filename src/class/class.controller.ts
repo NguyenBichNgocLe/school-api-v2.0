@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { ClassService } from './class.service';
 import { CreateUpdateClassDTO } from './dto/create-update-class.dto';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @Controller('class')
 export class ClassController {
@@ -9,21 +10,25 @@ export class ClassController {
     ) { }
 
     @Post('/')
+    @Roles(['admin', 'principal'])
     addClass(@Body() createClassDto: CreateUpdateClassDTO) {
         return this.classService.create(createClassDto.className);
     }
 
     @Get('/usingID/:id')
+    @Roles(['admin', 'principal', 'teacher'])
     getClassById(@Param('id') id: string) {
         return this.classService.getClassById(+id);
     }
 
     @Get('/all')
+    @Roles(['admin', 'principal', 'teacher'])
     getAllClasses() {
         return this.classService.getAllClasses();
     }
 
     @Patch('/:id')
+    @Roles(['admin', 'principal'])
     updateClass(
         @Param('id') id: string,
         @Body() updateClassDto: CreateUpdateClassDTO
@@ -32,6 +37,7 @@ export class ClassController {
     }
 
     @Delete('/:id')
+    @Roles(['admin', 'principal'])
     deleteClass(@Param('id') id: string) {
         return this.classService.delete(+id);
     }

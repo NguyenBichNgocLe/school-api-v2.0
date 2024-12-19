@@ -36,8 +36,9 @@ export class ClassService {
             throw new BadRequestException('Class name must be unique.');
 
         this.studentRepo
-            .getByClassName(className)
+            .getByClassName(foundClass.className)
             .forEach(student => this.studentRepo.save({ ...student, className }));
+
         return this.classRepo.save({ ...foundClass, className });
     }
 
