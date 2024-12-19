@@ -44,4 +44,8 @@ export class ClassRepository {
     public isDuplicatedName(className: string): boolean {
         return ClassRepository.DATA.some(c => c.className.toLowerCase() === className.toLowerCase());
     }
+
+    public isExistedClass(className: string): boolean {
+        return ClassRepository.DATA.some(c => c.className.toLowerCase() === className.toLowerCase());
+    }
 }

@@ -27,6 +27,10 @@ export class StudentRepository {
         return StudentRepository.DATA.filter((student) => student.className.toLowerCase() === className.toLowerCase());
     }
 
+    public searchStudentsByName(searchString: string): Student[] {
+        return StudentRepository.DATA.filter(student => student.studentName.toLowerCase().includes(searchString.toLowerCase()));
+    }
+
     public anyStudentInClass(className: string): boolean {
         return StudentRepository.DATA.some((student) => student.className.toLowerCase() === className.toLowerCase());
     }
@@ -41,11 +45,16 @@ export class StudentRepository {
     public save(student: Student) {
         const index = StudentRepository.DATA.findIndex((s) => s.id === student.id);
         StudentRepository.DATA[index] = student;
+        return StudentRepository.DATA[index];
     }
 
     public deleteStudent(id: number): Student[] {
         const index = StudentRepository.DATA.findIndex((student) => student.id === id);
         const deletedStudent = StudentRepository.DATA.splice(index, 1);
         return deletedStudent;
+    }
+
+    public isDuplicatedName(studentName: string): boolean {
+        return StudentRepository.DATA.some(student => student.studentName.toLowerCase() === studentName.toLowerCase());
     }
 }
